@@ -25,6 +25,7 @@ public class StudentBoxCricketRegController {
 		System.out.println("Food Preference : "+sbean.getFoodPrefernce());
 		System.out.println("Drink : "+sbean.getDrink());
 		
+
 		boolean isError  = false;
 		
 		if(validators.isBlank(sbean.getStudentName())) {
