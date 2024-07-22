@@ -12,12 +12,21 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.bean.EProductBean;
 import com.dao.EProductDao;
+import com.services.FileUploadServices;
 
 @Controller
 public class EProductController {
 	
 	@Autowired
 	EProductDao productDao;
+	
+	@Autowired
+	FileUploadServices fileUpload;
+	
+	@GetMapping("deletebyname")
+	public String deleteByName() {
+		return "DeleteByName";
+	}
 	
 	@GetMapping("/newproduct")
 	public String newProduct() {
@@ -29,7 +38,14 @@ public class EProductController {
 		
 		System.out.println("master Image org Name : "+masterImage.getOriginalFilename());
 		
+		String path = "C:\\ROYAL\\SPRING\\STS\\Project1\\src\\main\\webapp\\images\\product";
+		
+		productBean.setProductImagePath("images\\product\\"+masterImage.getOriginalFilename());
+		
+		fileUpload.fileUpload(masterImage,path);
+		
 		productDao.addProduct(productBean);
+
 		return "redirect:/products";
 		
 	}
@@ -45,13 +61,37 @@ public class EProductController {
 		return "EcomListProducts";
 	}
 	
-	@GetMapping("/delete")
+	@GetMapping("/deleteProduct")
 	public String deleteProduct(@RequestParam("productId") Integer productId) {
 		
-		System.out.println("/delete?productId="+productId);
 		productDao.deleteProduct(productId);
 		
 		return "redirect:/products";
+	}
+	
+	
+	@PostMapping("/deleteProduct")
+	public String deleteProduct(@RequestParam("productName") String productName,Model model) {
+		
+		Boolean productFound = false;
+		
+		List<EProductBean> list = productDao.getAllProducts();
+		
+		for (EProductBean product : list) {
+			if(product.getProductName().equals(productName)) {
+				productFound = true;
+			}
+		}
+		
+		if(productFound) {
+			productDao.deleteProduct(productName);
+			return "redirect:/products";
+		}
+		else {
+			model.addAttribute("productNameError", "*Please Enter exact Name This Product Does Not Exist");
+			return "DeleteByName";
+		}
+		
 	}
 	
 	
@@ -64,4 +104,6 @@ public class EProductController {
 		return "ViewProduct";
 		
 	}
+	
+	
 }

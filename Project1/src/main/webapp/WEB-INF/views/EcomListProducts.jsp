@@ -14,12 +14,17 @@
 	<h2>List Products</h2>
 	
 	<h3>Add <a href="/newproduct">New Product</a> </h3>
+	<br><br>
+	<h3><a href="/deletebyname">Delete By Product Name </a> </h3>
+	
 	
 	<%
 	
 		List<EProductBean> products = (List<EProductBean>)request.getAttribute("products");
 	
 	%>
+	
+	<a href="/home">Home</a>
 	
 	<table border="1">
 		<tr>
@@ -34,7 +39,7 @@
 			
 				out.print("<tr>");
 				out.print("<td>"+p.getProductId()+"</td><td>"
-				+p.getProductName()+"</td><td><a href='/delete?productId="+p.getProductId()+"'>Delete</a> | <a href='/view?productId="+p.getProductId()+"'>View</a></td>");
+				+p.getProductName()+"</td><td><a href='/deleteProduct?productId="+p.getProductId()+"'>Delete</a> | <a href='/view?productId="+p.getProductId()+"'>View</a></td>");
 				out.print("</tr>");
 			
 			}

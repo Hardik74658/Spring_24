@@ -18,8 +18,8 @@ public class EProductDao {
 	
 	public void addProduct(EProductBean productBean) {
 		
-		stmt.update("insert into products (productName,category,price,qty) values (?,?,?,?) ",
-				productBean.getProductName(), productBean.getCategory(),productBean.getPrice(),productBean.getQty());
+		stmt.update("insert into products (productName,category,price,qty,productImagePath) values (?,?,?,?,?) ",
+				productBean.getProductName(), productBean.getCategory(),productBean.getPrice(),productBean.getQty(),productBean.getProductImagePath());
 		
 	}
 	
@@ -37,6 +37,21 @@ public class EProductDao {
 		
 	}
 
+	public void deleteProduct(String productName) {
+		
+		stmt.update("delete from products where productName = ?" ,productName);
+		
+	}
+//	Not Working Giving Erro When Product not Found
+//	public Boolean findByName(String productName) {
+//		if(stmt.queryForObject("select * from products where productName=?",new BeanPropertyRowMapper<EProductBean>(EProductBean.class),new Object[] {productName}) != null) {
+//			return true;
+//		}
+//		else {
+//			return false;
+//		}
+//	}
+//	
 	public EProductBean getProductById(Integer productId) {
 		
 		EProductBean bean = stmt.queryForObject("select * from products where productId = ? ",
@@ -44,5 +59,7 @@ public class EProductDao {
 		
 		return bean;
 	}
+	
+	
 	
 }
