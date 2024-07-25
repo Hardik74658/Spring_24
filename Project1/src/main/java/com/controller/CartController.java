@@ -52,7 +52,7 @@ public class CartController {
 		List<EProductBean> products = cartDao.myCart(userId);
 		
 		model.addAttribute("products", products);
-		
+						
 		return "MyCart";
 	}
 	

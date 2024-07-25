@@ -26,6 +26,8 @@
                     <th>ProductName</th>
                     <th>Image</th>
                     <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total Price</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -37,10 +39,12 @@
                     out.print("<td>" + p.getProductName() + "</td>");
                     out.print("<td><img class='img-fluid' height='100px' width='100px' src='"+p.getProductImagePath()+"'/></td>");
                     out.print("<td>$" + p.getPrice() + "</td>");
+                    out.print("<td>" + p.getQty() + "</td>");
+                    out.print("<td>$" + p.getQty()*p.getPrice() + "</td>");
                     out.print("<td><a href='/removecartitem?productId="+p.getProductId()+"' class='btn btn-danger btn-sm'>Remove</a></td>");
                     out.print("</tr>");
                     
-                    price = price + p.getPrice(); 
+                    price = price + p.getPrice()*p.getQty(); 
                 }
                 %>
             </tbody>
@@ -48,7 +52,7 @@
     </div>
 
     <div class="mt-4">
-        <h4>Total Price: $<%= price %></h4>
+        <h4>Total Amount : $<%= price %></h4>
     </div>
 
     <div class="mt-3">
