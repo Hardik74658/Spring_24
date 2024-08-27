@@ -34,7 +34,7 @@ public class ECartDao {
 			stmt.update("insert into cart (userId,productId,qty) values (?,?,?)",cartBean.getUserId(),cartBean.getProductId(),cartBean.getQty());
 		}
 		else {
-			stmt.update("update cart set qty = ? where userId= ? and productId=?",cartBean.getQty()+1,cartBean.getUserId(),cartBean.getProductId());
+			stmt.update("update cart set qty = ? where userId= ? and productId=?",cart.getQty()+1,cart.getUserId(),cart.getProductId());
 		}
 	
 	
@@ -49,8 +49,14 @@ public class ECartDao {
 		return products;
 	}
 	
-	public void removeProductFromCart(Integer productId) {
-		stmt.update("delete from cart where productId = ?",productId);
+	public void removeProductFromCart(Integer productId,Integer qty) {
+		
+		if(qty == 1) {			
+			stmt.update("delete from cart where productId = ?",productId);
+		}else{
+			stmt.update("update cart set qty = ? where productId = ?",qty-1,productId);
+		}
+		
 	}
 	
 	

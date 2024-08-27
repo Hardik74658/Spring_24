@@ -42,6 +42,8 @@ public class CartController {
 		return "redirect:/userproducts";
 	}
 	
+	
+	
 	@GetMapping("/mycart")
 	public String myCart(Model model,HttpSession session) {
 		
@@ -58,9 +60,9 @@ public class CartController {
 	
 	
 	@GetMapping("/removecartitem")
-	public String removeFromCart(@RequestParam("productId") Integer productId) {
+	public String removeFromCart(@RequestParam("productId") Integer productId,@RequestParam("qty") Integer qty) {
 			
-		cartDao.removeProductFromCart(productId);
+		cartDao.removeProductFromCart(productId,qty);
 		
 		return "redirect:/mycart";
 	}

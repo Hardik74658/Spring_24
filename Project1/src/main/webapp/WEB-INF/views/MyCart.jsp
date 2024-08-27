@@ -41,11 +41,13 @@
                     out.print("<td>$" + p.getPrice() + "</td>");
                     out.print("<td>" + p.getQty() + "</td>");
                     out.print("<td>$" + p.getQty()*p.getPrice() + "</td>");
-                    out.print("<td><a href='/removecartitem?productId="+p.getProductId()+"' class='btn btn-danger btn-sm'>Remove</a></td>");
+                    out.print("<td><a href='/removecartitem?productId="+p.getProductId()+"&qty="+p.getQty()+"' class='btn btn-danger btn-sm'>Remove</a></td>");
                     out.print("</tr>");
                     
                     price = price + p.getPrice()*p.getQty(); 
+                    
                 }
+                session.setAttribute("totalAmnt", price);
                 %>
             </tbody>
         </table>
@@ -56,7 +58,7 @@
     </div>
 
     <div class="mt-3">
-        <a href="checkout" class="btn btn-primary">Checkout</a>
+        <a href='checkout'class="btn btn-primary">Checkout</a>
     </div>
 </div>
 
